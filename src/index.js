@@ -22,10 +22,11 @@
  // ANCHOR DOM Selectors
 const rulesBtn = document.getElementById('rules-btn')
 const closeBtn = document.getElementById('close-btn')
-close rules = document.getElementById('rules')
+const rules = document.getElementById('rules')
 
 // ANCHOR Canvas DOM Selector
 const canvas = document.getElementById('canvas')
+const ctx = canvas.getContext('2d')
 
 
 let score= 0 // we set our score board to zero
@@ -49,16 +50,43 @@ const ball = {
 const paddle = {
     x: canvas.width /2 -40, // We are taking half width of the paddle
                             // to display it in the center of the canvas
-    y: canvas.height -20    // and displaying it slightly above the bottom of the canvas
-    w: 80, //paddle size
-    h: 10, //paddle size
+    y: canvas.height -20,    // and displaying it slightly above the bottom of the canvas
+    w: 80, //paddle size height
+    h: 10, //paddle size width
     speed: 8,
     dx: 0 // Only moves on the x-axis
 }
 
  // create brick
-const brickInfo = {}
+const brickInfo = {
+    w: 70, // bricks will share the same properties
+    h: 20,
+    padding:10,
+    offsetX: 45,
+    offsetY: 60,
+    visible: true
+}
 
 // create brick array
-const bricks = []
+const bricks = [] //init bricks array
+for(let i=0; i < brickRowCount; i++) { //loops through the array rows
+    bricks[i] = [] // set the row bricks iteration to an empty array
+    for(let j=0; j < brickColumnCount; j++) { //loops through the array column
+        const x = i *(brickInfo.w + brickInfo.padding) + brickInfo.offsetX // i is the row iteration for each brick
+        const y = j *(brickInfo.h + brickInfo.padding) + brickInfo.offsetY // we are looping and setting the position for each brick
+        bricks[i][j] = {x, y, ...brickInfo} // takes the 2D array and populates it with the appropriate values including calculated XY coordinates
+    }
+}
 
+console.log(bricks)
+
+// Create the ball and draw it on the canvas
+function drawBall() {
+    ctx.beginPath() // We are going to create a path
+    ctx.arc(ball.x, ball.y, ball.size, 0, Math.PI * 2) // draw an arc to build a ball
+    ctx.fillStyle = '#0095dd' // Style the ball and arc prop
+    ctx.fill()
+    ctx.closePath()
+}
+
+// Create and draw the paddle on canvas
