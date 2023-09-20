@@ -36,8 +36,8 @@ const brickColumnCount = 5
  // create ball
 
 const ball = {
-    x:canvas.width / 2, //Start displaying in the middle of the screen
-    y:canvas.height / 2, // Start displaying the ball in the middle of the screen
+    x: canvas.width / 2, //Start displaying in the middle of the screen
+    y: canvas.height / 2, // Start displaying the ball in the middle of the screen
     size: 10,
     speed: 4, // Animation speed props
     dx: 4, // Animation direction on the x axis
@@ -46,7 +46,15 @@ const ball = {
  
  // create paddle
 
-const paddle = {}
+const paddle = {
+    x: canvas.width /2 -40, // We are taking half width of the paddle
+                            // to display it in the center of the canvas
+    y: canvas.height -20    // and displaying it slightly above the bottom of the canvas
+    w: 80, //paddle size
+    h: 10, //paddle size
+    speed: 8,
+    dx: 0 // Only moves on the x-axis
+}
 
  // create brick
 const brickInfo = {}
