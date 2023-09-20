@@ -97,3 +97,21 @@ function drawPaddle() {
     ctx.fill()
     ctx.closePath()
 }
+
+function drawScore() {
+    ctx.font = '20px Arial'
+    ctx.fillText(`Score: ${score}`, canvas.width - 100, 30)
+}
+
+// Bricks design on the canvas
+function drawBricks(
+    bricks.foreach(column => {
+        column.foreach(brick => {
+            ctx.beginPath()
+            ctx.rect(brick.x, brick.y, brick.w, brick.h)
+            ctx.fillStyle = brick.visible ? '#0095dd' : 'transparent' // this is conditional
+            ctx.fill()
+            ctx.closePath()
+        })
+    })
+)
