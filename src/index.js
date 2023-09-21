@@ -115,3 +115,64 @@ function drawBricks(
         })
     })
 )
+
+// NOTE Move the paddle on canvas
+function movePaddle() { //Every time you start playing on the canvas
+    paddle.x += paddle.dx // paddle will not move until we use the keyboard events.
+
+    // Wall detection
+    if(paddle.x+ paddle.w > canvas.width){
+        paddle.x = canvas.width - paddle.w
+    }
+
+    if(paddle.x < 0) { // prevents the paddle from passing outside of the screen
+        paddle.x = 0
+    }
+}
+
+// NOTE Moving the ball on the canvas
+function moveBall() {
+    ball.x += ball.dx //append the ball on the x-axis
+    ball.y += ball.dy // append the ball on the y-axis
+
+    // wall collision (right/left)
+    if(ball.x + ball.size > canvas.width || ball.x - ball.size < 0 { // right and left walls
+        ball.dx *= -1 // reverses the ball if it hits the wall while moving on the x axis
+    })
+
+    //wall collision (top/bottom)
+    if(ball.y + ball size > canvas.height || ball.y - ball.size < 0) { // top and bottom walls
+        ball.dy *= -1
+    }
+
+    //paddle collision
+    if(
+        ball.x -ball.size > paddle.x &&
+        ball.x + ball.size < paddle.x + paddle.w &&
+        ball.y + ball.size > paddle.y
+    ) {
+        ball.dy = -ball.speed // reverse the ball object and bounce off paddle with the same speed
+    }
+
+    // NOTE Brick collision
+    bricks.forEach(column => { //loop through bricks array
+        column.forEach(brick =>{
+            if(brick.visible) { // only interact with bricks that are visible
+                if(
+                    ball.x - ball size > brick.x && // checking the left side
+                    ball.x - ball size > brick.x + brick.width && // checking the right side
+                    ball.y + ball.size > brick.y // top brick is checked
+                    ball.y - ball.size < brick.y + brick.h // bottom brick side is checked
+                ) {
+                    ball.y *= -1 // bounces off the brick
+                    brick.visible = false // once it bounces off the brick, remove brick
+
+                    //increaseScore() // this will change the score status
+                }
+            }
+        })
+    })
+}
+
+
+
